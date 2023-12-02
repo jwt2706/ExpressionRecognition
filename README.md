@@ -4,7 +4,7 @@ This webapp recognizes facial expressions using a custom Tensorflow.js model. Th
 
 See it here: <https://jwt2706.github.io/ExpressionRecognition/>
 
-NOTE: The model isn't the best and isn't the most accurate, as this was more of a proof-of-concept and a learning oppertunity for myself. I would like to revisit this project to rework the model once I have time. This started out as a joke, but it actually got me interested. :D
+**NOTE:** The model isn't the best and isn't the most accurate, as this was more of a proof-of-concept and a learning oppertunity for myself. I would like to revisit this project to rework the model once I have time. This started out as a joke, but it actually got me interested. :D
 
 ## Emotional expressions
 
