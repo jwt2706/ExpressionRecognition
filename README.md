@@ -1,6 +1,6 @@
 # Facial Expression Recognition
 
-This webapp recognizes facial expressions using a custom Tensorflow.js model. The model trained using selected parts of the FER2013 dataset. It utilizes machine learning techniques to analyze facial expressions and classify them into different emotional categories and even occasionnaly plays some funny sounds! lol
+This webapp recognizes facial expressions using a custom Tensorflow.js model. The model was trained using selected parts of the FER2013 dataset. It utilizes machine learning techniques to analyze facial expressions and classify them into different emotional categories and even occasionnaly plays some funny sounds! lol
 
 See it here: <https://jwt2706.github.io/ExpressionRecognition/>
 
@@ -26,7 +26,7 @@ See it here: <https://jwt2706.github.io/ExpressionRecognition/>
 
 ## Dataset
 
-The FER2013 dataset is used for training the facial expression recognition model. The dataset consists of images labeled with one of seven emotions: anger, disgust, fear, happiness, sadness, surprise, and neutral. However, only about 500 images of the dataset were used to train the model to speed the training process up.
+The FER2013 dataset is used for training the facial expression recognition model. The dataset consists of images labeled with one of seven emotions: anger, disgust, fear, happiness, neutral, sadness, and surprise. However, I only selected about 500 images for each class of the dataset to speed up the training process.
 
 ## Model Training
 
