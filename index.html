@@ -1,90 +1,28 @@
-<div>Facial expression recognition</div>
-<button type="button" onclick="init()">Start</button>
-<div id="webcam-container"></div>
-<div id="pred"></div>
-<br>
-<div id="label-container"></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Classification</title>
+    <script type="module">
+        import { pipeline } from 'https://cdn.jsdelivr.net/npm/@xenova/transformers/dist/transformers.min.js';
 
-<audio id="happy" src="sounds/heheheha.mp3" autoplay loop></audio>
-<audio id="angry" src="sounds/grrr.mp3" autoplay loop></audio>
-<audio id="sad" src="sounds/ehohoui.mp3" autoplay loop></audio>
-
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
-<!--<script src="node_modules/@techstark/opencv-js/dist/opencv.js"></script>-->
-
-<script type="text/javascript">
-    
-    const URL = "./FERmodelV1/";
-
-    let model, webcam, labelContainer, maxPredictions;
-
-    // Load the image model and setup the webcam
-    async function init() {
-        const modelURL = URL + "model.json";
-        const metadataURL = URL + "metadata.json";
-
-        // load the model and metadata
-        // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
-        // or files from your local hard drive
-        // Note: the pose library adds "tmImage" object to your window (window.tmImage)
-        model = await tmImage.load(modelURL, metadataURL);
-        maxPredictions = model.getTotalClasses();
-
-        // Convenience function to setup a webcam
-        const flip = true; // whether to flip the webcam
-        webcam = new tmImage.Webcam(200, 200, flip); // width, height, flip
-        await webcam.setup(); // request access to the webcam
-        await webcam.play();
-        window.requestAnimationFrame(loop);
-
-        // append elements to the DOM
-        document.getElementById("webcam-container").appendChild(webcam.canvas);
-        labelContainer = document.getElementById("label-container");
-        for (let i = 0; i < maxPredictions; i++) { // and class labels
-            labelContainer.appendChild(document.createElement("div"));
+        async function classifyImage() {
+            const classifier = await pipeline('image-classification', 'Xenova/facial_emotions_image_detection');
+            const url = document.getElementById('image').src;
+            const output = await classifier(url);
+            document.getElementById('output').textContent = JSON.stringify(output, null, 2);
         }
-    }
 
-    async function loop() {
-        webcam.update(); // update the webcam frame
-        await predict();
-        window.requestAnimationFrame(loop);
-    }
-
-    // run the webcam image through the image model
-    async function predict() {
-        // predict can take in an image, video or canvas html element
-
-        //let img = webcam.canvas;
-        //const greyImg = new cv.Mat();
-        //cv.cvtColor(img, greyImg, cv.COLOR_BGR2GRAY);
-
-        const prediction = await model.predict(webcam.canvas);
-        let predValH = 0.0;
-        let predTitleH = "";
-        for (let i = 0; i < maxPredictions; i++) {
-            let predictionValue = prediction[i].probability.toFixed(2)
-            let className = prediction[i].className
-
-            if (predValH <= predictionValue) {
-                predValH = predictionValue;
-                predTitleH = className;
-            }
-            const classPrediction = className + ": " + predictionValue;
-            labelContainer.childNodes[i].innerHTML = classPrediction;
-        }
-        document.getElementById("pred").innerHTML = predTitleH;
-        
-        var audio = document.getElementById(predTitleH);
-        var soundEmotions = ["sad", "happy", "angry"];
-        if (soundEmotions.includes(predTitleH)) {
-            audio.play();
-        } else {
-            soundEmotions.forEach(emotion => {
-                document.getElementById(emotion).pause();
-            });
-        }
-    }
-</script>
-
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('classifyButton').addEventListener('click', classifyImage);
+        });
+    </script>
+</head>
+<body>
+    <h1>Facial Emotion Recognition</h1>
+    <img id="image" src="https://i.imgur.com/fhtXyYJ.png" alt="Image" width="300" />
+    <button id="classifyButton">Classify Image</button>
+    <pre id="output"></pre>
+</body>
+</html>
