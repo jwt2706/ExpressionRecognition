@@ -1,51 +1,7 @@
 # Facial Expression Recognition
 
-This webapp recognizes facial expressions using a custom Tensorflow.js model. The model was trained using selected parts of the FER2013 dataset. It utilizes machine learning techniques to analyze facial expressions and classify them into different emotional categories and even occasionnaly plays some funny sounds! lol
+This will recognize your facial expression (hopefully correctly), and maybe play some epic meme sounds.<br />
+I'm not sure why I made this but I had this idea a while ago, and the old version I had did not work at all lmao. So recently I decided to have a second shot at this.
+The current version uses the [transformers.js](https://huggingface.co/docs/transformers.js/en/index) library, with [this model](https://huggingface.co/Xenova/facial_emotions_image_detection).
 
-See it here: <https://jwt2706.github.io/ExpressionRecognition/>
-
-**NOTE:** The model isn't the best and isn't the most accurate, as this was more of a proof-of-concept and a learning opportunity for myself. I would like to revisit this project to rework the model once I have time. This started out as a joke, but it actually got me interested. :D
-
-## Emotional expressions
-
-- Anger
-- Disgust
-- Fear
-- Happiness
-- Neutral
-- Sadness
-- Suprise
-
-## Run it locally
-- `git clone https://github.com/jwt2706/ExpressionRecognition.git`
-- `cd ExpressionRecognition`
-- `npm i`
-- `npm run dev`
-- Open the `localhost` link in your browser
-- There you have it! :)
-
-## Dataset
-
-The FER2013 dataset is used for training the facial expression recognition model. The dataset consists of images labeled with one of seven emotions: anger, disgust, fear, happiness, neutral, sadness, and surprise. However, I only selected about 500 images for each class of the dataset to speed up the training process.
-
-## Model Training
-
-If you want to train the facial expression recognition model using the FER2013 dataset, follow these steps:
-
-1. Download the FER2013 dataset from [here](https://www.kaggle.com/c/challenges-in-representation-learning-facial-expression-recognition-challenge/data).
-
-2. Preprocess the dataset to extract the selected parts you want to use for training.
-
-3. Split the dataset into training and validation sets.
-
-4. Train the model using the preprocessed dataset. You can use any machine learning framework or library of your choice.
-
-5. Save the trained model weights and update the app to use the new model.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
-
-## Acknowledgments
-
-- The FER2013 dataset: [https://www.kaggle.com/c/challenges-in-representation-learning-facial-expression-recognition-challenge/data](https://www.kaggle.com/c/challenges-in-representation-learning-facial-expression-recognition-challenge/data)
+Try it here: <https://jwt2706.github.io/ExpressionRecognition/>
