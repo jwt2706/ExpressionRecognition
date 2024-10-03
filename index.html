@@ -19,6 +19,13 @@
         let isCameraOn = false; // track camera state
         let stream; // store the video stream
 
+        // Load sound effects
+        const sounds = {
+            happy: new Audio('/sounds/heheheha.mp3'),
+            sad: new Audio('/sounds/ehohoui.mp3'),
+            angry: new Audio('sounds/grrr.mp3')
+        };
+
         async function setupClassifier() {
             document.getElementById('loadingIndicator').style.display = 'block'; // show loading indicator if model isn't ready yet
             classifier = await pipeline('image-classification', 'Xenova/facial_emotions_image_detection');
@@ -43,6 +50,32 @@
             }).join('\n');
 
             document.getElementById('output').textContent = formattedOutput;
+            playSound(output); // play sound based on detected emotions
+        }
+
+        function playSound(output) {
+            // Stop all sounds first
+            for (const sound of Object.values(sounds)) {
+                sound.pause();
+                sound.currentTime = 0; // Reset to start
+            }
+
+            // Play sound for the detected emotion with the highest score
+            const highestEmotion = output.reduce((prev, current) => (prev.score > current.score) ? prev : current);
+
+            switch (highestEmotion.label) {
+                case 'happy':
+                    sounds.happy.play();
+                    break;
+                case 'sad':
+                    sounds.sad.play();
+                    break;
+                case 'angry':
+                    sounds.angry.play();
+                    break;
+                default:
+                    break; // Other emotions do not play sound
+            }
         }
 
         async function startCamera() {
